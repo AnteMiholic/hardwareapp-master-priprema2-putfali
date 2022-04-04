@@ -48,6 +48,18 @@ public class HardwareController {
                 );
     }
 
+    @DeleteMapping("/{code}")
+    public ResponseEntity<String> delete(@PathVariable String code) {
+        // Access the DB and delete the order
+        return hardwareService.delete(code)
+                .map(
+                        hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(code)
+                )
+                .orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+                );
+    }
+
 
 
 

@@ -49,4 +49,17 @@ public class MockHardwareRepository implements HardwareRepository {
         return MOCKED_HARDWARE.stream().filter(it -> Objects.equals(it.getType(), HardwareTypeEnum.valueOf(type))).collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<Object> delete(String code) {
+        System.out.println("Prije ifa");
+        if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
+            System.out.println("poslije ifa");
+            MOCKED_HARDWARE.removeIf(it -> Objects.equals(it.getCode(), code));
+            return Optional.of(code);
+        }
+        else
+            return Optional.empty();
+
+    }
+
 }

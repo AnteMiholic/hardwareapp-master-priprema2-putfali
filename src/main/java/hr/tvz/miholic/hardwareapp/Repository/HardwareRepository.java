@@ -16,4 +16,6 @@ public interface HardwareRepository {
     Optional<Hardware> findByCode(String code);
 
     List<Hardware> findByType(String type);
+
+    Optional<Object> delete(String code);
 }

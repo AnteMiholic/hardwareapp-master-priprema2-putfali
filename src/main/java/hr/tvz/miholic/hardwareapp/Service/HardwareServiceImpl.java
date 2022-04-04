@@ -41,6 +41,11 @@ public class HardwareServiceImpl implements HardwareService {
         return hardwareRepository.save(mapCommandToHardware(command)).map(this::mapHardwareToDTO);
     }
 
+    @Override
+    public Optional<Object> delete(String code) {
+        return hardwareRepository.delete(code);
+    }
+
     public HardwareDTO mapHardwareToDTO(final Hardware hardware){
 
       return new HardwareDTO(hardware.getName(), hardware.getPrice());
