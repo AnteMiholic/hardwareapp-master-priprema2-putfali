@@ -27,11 +27,11 @@ public class HardwareController {
     public List<HardwareDTO> getAllHardware(){
         return hardwareService.findAll();
     }
-
+    /*
     @GetMapping(params = "code")
     public HardwareDTO getHardwareByCode(@RequestParam final String code){
         return hardwareService.findByCode(code);
-    }
+    }*/
     @GetMapping(params = "type")
     public List<HardwareDTO> getHardwareByType(@RequestParam final String type){
         return hardwareService.findByType(type);
@@ -49,19 +49,26 @@ public class HardwareController {
     }
 
     @DeleteMapping("/{code}")
-    public ResponseEntity<String> delete(@PathVariable String code) {
+    public ResponseEntity<HardwareDTO> delete(@PathVariable String code) {
         // Access the DB and delete the order
         return hardwareService.delete(code)
                 .map(
-                        hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(code)
+                        hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(hardwareDTO)
                 )
                 .orElseGet(
                         () -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
                 );
     }
+    @GetMapping("/{code}")
+    public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable String code) {
 
-
-
-
+        return hardwareService.getByCode(code)
+                .map(
+                        hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(hardwareDTO)
+                )
+                .orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+                );
+    }
 
 }

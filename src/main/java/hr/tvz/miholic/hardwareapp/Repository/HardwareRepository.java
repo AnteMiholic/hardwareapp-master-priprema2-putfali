@@ -4,7 +4,6 @@ import hr.tvz.miholic.hardwareapp.Classes.Hardware;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.DoubleStream;
 
 public interface HardwareRepository {
 
@@ -17,5 +16,7 @@ public interface HardwareRepository {
 
     List<Hardware> findByType(String type);
 
-    Optional<Object> delete(String code);
+    Optional<Hardware> delete(String code);
+
+    Optional<Hardware> getByCode(String code);
 }

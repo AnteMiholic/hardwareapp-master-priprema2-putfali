@@ -25,11 +25,11 @@ public class HardwareServiceImpl implements HardwareService {
     public List<HardwareDTO> findAll() {
         return hardwareRepository.findAll().stream().map(this::mapHardwareToDTO).collect(Collectors.toList());
     }
-
+    /*
     @Override
     public HardwareDTO findByCode(String code) {
         return hardwareRepository.findByCode(code).map(this::mapHardwareToDTO).orElse(null);
-    }
+    }*/
 
     @Override
     public List<HardwareDTO> findByType(String type) {
@@ -42,8 +42,13 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public Optional<Object> delete(String code) {
-        return hardwareRepository.delete(code);
+    public Optional<HardwareDTO> delete(String code) {
+        return hardwareRepository.delete(code).map(this::mapHardwareToDTO);
+    }
+
+    @Override
+    public Optional<HardwareDTO> getByCode(String code) {
+        return hardwareRepository.getByCode(code).map(this::mapHardwareToDTO);
     }
 
     public HardwareDTO mapHardwareToDTO(final Hardware hardware){

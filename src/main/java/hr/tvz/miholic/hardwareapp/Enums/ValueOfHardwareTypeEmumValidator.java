@@ -8,7 +8,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ValueOfHardwareTypeEmumValidator implements ConstraintValidator<ValueOfHardwareTypeEnum, CharSequence> {
-    private List<String> acceptedValues;
+     List<String> acceptedValues;
+
+
+
+
     @Override
     public void initialize(ValueOfHardwareTypeEnum annotation) {
         acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())

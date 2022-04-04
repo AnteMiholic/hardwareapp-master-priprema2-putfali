@@ -4,7 +4,6 @@ import hr.tvz.miholic.hardwareapp.Classes.Hardware;
 import hr.tvz.miholic.hardwareapp.Enums.HardwareTypeEnum;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,16 +49,26 @@ public class MockHardwareRepository implements HardwareRepository {
     }
 
     @Override
-    public Optional<Object> delete(String code) {
+    public Optional<Hardware> delete(String code) {
         System.out.println("Prije ifa");
         if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
             System.out.println("poslije ifa");
+            Optional<Hardware> h = MOCKED_HARDWARE.stream().filter(it -> Objects.equals(it.getCode(), code)).findAny();
             MOCKED_HARDWARE.removeIf(it -> Objects.equals(it.getCode(), code));
-            return Optional.of(code);
+            return h;
         }
         else
             return Optional.empty();
 
+    }
+
+    @Override
+    public Optional<Hardware> getByCode(String code) {
+        if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
+            return MOCKED_HARDWARE.stream().filter(it -> Objects.equals(it.getCode(), code)).findAny();
+        }
+        else
+            return Optional.empty();
     }
 
 }

@@ -22,10 +22,13 @@ public @interface ValueOfHardwareTypeEnum {
 
 
     Class<? extends Enum<?>> enumClass();
+
+
+
     /*
-    String message() default "must be any of enum {enumClass}";
+
      */
-    String message() default "Type is not valid!";
+    String message() default "must be any of enum {anyOf}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
