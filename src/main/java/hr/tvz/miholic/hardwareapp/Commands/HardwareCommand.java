@@ -1,11 +1,17 @@
 package hr.tvz.miholic.hardwareapp.Commands;
 
+import hr.tvz.miholic.hardwareapp.Enums.HardwareTypeEnum;
+import hr.tvz.miholic.hardwareapp.Enums.ValueOfHardwareTypeEnum;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HardwareCommand {
+
 
     @NotBlank(message = "Product name must not be empty!")
     private String name;
@@ -23,12 +29,17 @@ public class HardwareCommand {
     /*
     Trebao bi biti enum, moguće riješiti preko dokumentacije na linku: https://www.baeldung.com/javax-validations-enums
      */
-    @NotBlank(message = "Type must not be empty!")
+    @NotNull(message = "Type must be entered!")
+    @ValueOfHardwareTypeEnum(enumClass = HardwareTypeEnum.class)
     private String type;
 
     @NotNull(message = "Amount must be entered!")
     @PositiveOrZero(message = "Amount must be greater than 0!")
     private int amount;
+
+    public HardwareCommand() {
+    }
+
 
     public String getName() {
         return name;
