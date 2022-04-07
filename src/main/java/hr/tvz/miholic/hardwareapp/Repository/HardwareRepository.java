@@ -1,6 +1,7 @@
 package hr.tvz.miholic.hardwareapp.Repository;
 
 import hr.tvz.miholic.hardwareapp.Classes.Hardware;
+import hr.tvz.miholic.hardwareapp.Commands.HardwareCommand;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,6 @@ public interface HardwareRepository {
     Optional<Hardware> delete(String code);
 
     Optional<Hardware> getByCode(String code);
+
+    Optional<Hardware> update(String code, Hardware hardware);
 }

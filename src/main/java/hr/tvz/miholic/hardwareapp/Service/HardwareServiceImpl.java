@@ -3,7 +3,6 @@ package hr.tvz.miholic.hardwareapp.Service;
 import hr.tvz.miholic.hardwareapp.Classes.Hardware;
 import hr.tvz.miholic.hardwareapp.Classes.HardwareDTO;
 import hr.tvz.miholic.hardwareapp.Commands.HardwareCommand;
-import hr.tvz.miholic.hardwareapp.Enums.HardwareTypeEnum;
 import hr.tvz.miholic.hardwareapp.Repository.HardwareRepository;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +50,11 @@ public class HardwareServiceImpl implements HardwareService {
         return hardwareRepository.getByCode(code).map(this::mapHardwareToDTO);
     }
 
+    @Override
+    public Optional<HardwareDTO> update(String code, HardwareCommand updateHardwareCommand) {
+        return hardwareRepository.update(code, mapCommandToHardware(updateHardwareCommand)).map(this::mapHardwareToDTO);
+    }
+
     public HardwareDTO mapHardwareToDTO(final Hardware hardware){
 
       return new HardwareDTO(hardware.getName(), hardware.getPrice());
@@ -59,6 +63,6 @@ public class HardwareServiceImpl implements HardwareService {
     }
     public Hardware mapCommandToHardware(HardwareCommand hardwareCommand){
 
-        return new Hardware(hardwareCommand.getName(), hardwareCommand.getCode(), hardwareCommand.getPrice(), HardwareTypeEnum.valueOf(hardwareCommand.getType()), hardwareCommand.getAmount());
+        return new Hardware(hardwareCommand.getName(), hardwareCommand.getCode(), hardwareCommand.getPrice(), hardwareCommand.getType(), hardwareCommand.getAmount());
     }
 }

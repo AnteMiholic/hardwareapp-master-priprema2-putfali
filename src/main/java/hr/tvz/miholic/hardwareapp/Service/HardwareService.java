@@ -19,4 +19,6 @@ public interface HardwareService {
     Optional<HardwareDTO> delete(String code);
 
     Optional<HardwareDTO> getByCode(String code);
+
+    Optional<HardwareDTO> update(String code, HardwareCommand updateHardwareCommand);
 }

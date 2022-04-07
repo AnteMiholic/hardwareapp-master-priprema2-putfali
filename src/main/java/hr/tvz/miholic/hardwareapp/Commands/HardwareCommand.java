@@ -1,14 +1,12 @@
 package hr.tvz.miholic.hardwareapp.Commands;
 
 import hr.tvz.miholic.hardwareapp.Enums.HardwareTypeEnum;
-import hr.tvz.miholic.hardwareapp.Enums.ValueOfHardwareTypeEnum;
+import hr.tvz.miholic.hardwareapp.Enums.HardwareTypeSubset;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class HardwareCommand {
 
@@ -29,9 +27,10 @@ public class HardwareCommand {
     /*
     Trebao bi biti enum, moguće riješiti preko dokumentacije na linku: https://www.baeldung.com/javax-validations-enums
      */
-    @NotNull(message = "Type must be entered!")
-    @ValueOfHardwareTypeEnum(enumClass = HardwareTypeEnum.class)
-    private String type;
+    @NotNull
+    @HardwareTypeSubset(anyOf = {HardwareTypeEnum.CPU, HardwareTypeEnum.GPU, HardwareTypeEnum.MBO, HardwareTypeEnum.RAM,
+            HardwareTypeEnum.STORAGE, HardwareTypeEnum.HOUSING, HardwareTypeEnum.OTHER})
+    private HardwareTypeEnum type;
 
     @NotNull(message = "Amount must be entered!")
     @PositiveOrZero(message = "Amount must be greater than 0!")
@@ -53,7 +52,7 @@ public class HardwareCommand {
         return price;
     }
 
-    public String getType() {
+    public HardwareTypeEnum getType() {
         return type;
     }
 

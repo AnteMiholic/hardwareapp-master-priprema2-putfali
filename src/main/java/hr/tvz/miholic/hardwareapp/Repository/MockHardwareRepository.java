@@ -50,9 +50,9 @@ public class MockHardwareRepository implements HardwareRepository {
 
     @Override
     public Optional<Hardware> delete(String code) {
-        System.out.println("Prije ifa");
+
         if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
-            System.out.println("poslije ifa");
+
             Optional<Hardware> h = MOCKED_HARDWARE.stream().filter(it -> Objects.equals(it.getCode(), code)).findAny();
             MOCKED_HARDWARE.removeIf(it -> Objects.equals(it.getCode(), code));
             return h;
@@ -66,6 +66,18 @@ public class MockHardwareRepository implements HardwareRepository {
     public Optional<Hardware> getByCode(String code) {
         if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
             return MOCKED_HARDWARE.stream().filter(it -> Objects.equals(it.getCode(), code)).findAny();
+        }
+        else
+            return Optional.empty();
+    }
+
+    @Override
+    public Optional<Hardware> update(String code, Hardware hardware) {
+
+        if(MOCKED_HARDWARE.stream().anyMatch(e -> e.getCode().equals(code))){
+            MOCKED_HARDWARE.removeIf(e -> e.getCode().equals(code));
+            MOCKED_HARDWARE.add(hardware);
+            return Optional.of(hardware);
         }
         else
             return Optional.empty();

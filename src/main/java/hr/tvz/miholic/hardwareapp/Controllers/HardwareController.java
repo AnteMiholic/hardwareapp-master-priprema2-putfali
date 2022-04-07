@@ -1,6 +1,5 @@
 package hr.tvz.miholic.hardwareapp.Controllers;
 
-import hr.tvz.miholic.hardwareapp.Classes.Hardware;
 import hr.tvz.miholic.hardwareapp.Classes.HardwareDTO;
 import hr.tvz.miholic.hardwareapp.Commands.HardwareCommand;
 import hr.tvz.miholic.hardwareapp.Service.HardwareService;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("hardware")
@@ -63,6 +61,17 @@ public class HardwareController {
     public ResponseEntity<HardwareDTO> getHardwareByCode(@PathVariable String code) {
 
         return hardwareService.getByCode(code)
+                .map(
+                        hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(hardwareDTO)
+                )
+                .orElseGet(
+                        () -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+                );
+    }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<HardwareDTO> update(@PathVariable String code, @Valid @RequestBody final HardwareCommand updateHardwareCommand){
+        return hardwareService.update(code, updateHardwareCommand)
                 .map(
                         hardwareDTO -> ResponseEntity.status(HttpStatus.OK).body(hardwareDTO)
                 )
